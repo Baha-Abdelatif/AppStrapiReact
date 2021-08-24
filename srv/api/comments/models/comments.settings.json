@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "name": "comments",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pseudo": {
+      "type": "string",
+      "required": true,
+      "default": "anonymous"
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "post": {
+      "model": "posts",
+      "via": "comments"
+    }
+  }
+}
