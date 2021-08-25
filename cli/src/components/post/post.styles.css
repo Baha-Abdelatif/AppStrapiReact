@@ -1,0 +1,41 @@
+.post_container {
+  margin: 1%;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: 1px solid white;
+}
+
+.post_title {
+  border-bottom: 1px solid white;
+}
+
+.post_title h2 {
+  margin: 2.5%;
+}
+.post_date {
+  text-align: right;
+  margin-right: 2.5%;
+  margin-bottom: 1%;
+  font-style: italic;
+}
+
+.post_preview {
+  margin: 1%;
+  display: flex;
+}
+
+.post_content {
+  margin: 1% 2%;
+}
+
+.post_image {
+  display: flex;
+  align-items: center;
+  background-color: black;
+}
+
+.post_image img {
+  max-width: 150px;
+}
