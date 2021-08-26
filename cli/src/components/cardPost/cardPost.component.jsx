@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { convertInLocaleDate } from "../../utils/dates.tools";
 import { API_URL } from "../../config/variables.config";
+import { Link } from "react-router-dom";
+import "./cardPost.styles.css";
 
 const useStyles = makeStyles({
   root: {
@@ -23,7 +25,7 @@ export default function MediaCard({ post }) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={`${classes.root} post_card `}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -44,9 +46,11 @@ export default function MediaCard({ post }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Lire L'Article
-        </Button>
+        <Link to={`/post/${post.id}`}>
+          <Button size="small" color="primary">
+            Lire L'Article
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

@@ -26,7 +26,7 @@ export default function Posts() {
     <div className="all_posts">
       <h1>Tous les Articles :</h1>
       <div className="posts_container">
-        <Grid container spacing={3}>
+        <Grid container spacing={3} justifyContent="center" alignItems="center">
           {posts.map((post) => {
             return <MediaCard post={post} key={post.id} />;
           })}
