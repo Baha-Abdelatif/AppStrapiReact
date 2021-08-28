@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Posts from "./components/posts/posts.component";
-import Post from "./components/post/post.component";
+import Posts from "./pages/posts/posts.component";
+import Post from "./pages/post/post.component";
 import Container from "@material-ui/core/Container";
 import Navbar from "./components/navbar/navbar.component";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";

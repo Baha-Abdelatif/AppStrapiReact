@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Box } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
-import MediaCard from "../cardPost/cardPost.component";
+import MediaCard from "../../components/cardPost/cardPost.component";
 import "./posts.styles.css";
-import { API_URL } from "../../config/variables.config";
+import { findAll } from "../../services/posts_api.service";
 
 export default function Posts() {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState(null);
 
+  const initialLoad = async () => {
+    const datas = await findAll();
+    if (datas) {
+      setPosts(datas);
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
+  };
   useEffect(() => {
-    fetch(`${API_URL}/posts`, {
-      method: "GET",
-      headers: { Accept: "Application/json" },
-    })
-      .then((res) => res.json())
-      .then((datas) => {
-        // console.log(datas);
-        setPosts(datas);
-        setIsLoading(false);
-      });
+    initialLoad();
   }, []);
 
   return !isLoading ? (

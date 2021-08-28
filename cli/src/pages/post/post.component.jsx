@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Grid, Box } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { API_URL } from "../../config/variables.config";
+
+import { findAll, findOne } from "../../services/posts_api.service";
 import { convertInLocaleDate } from "../../utils/dates.tools";
-import { Link } from "react-router-dom";
-import Comment from "../comment/comment.component";
-import CommentForm from "../comment_form/comment_form.component";
+import { API_URL } from "../../config/variables.config";
+
+import Comment from "../../components/comment/comment.component";
+import CommentForm from "../../components/forms/comment_form/comment_form.component";
 import "./post.styles.css";
 
 export default function Post() {
@@ -16,26 +19,22 @@ export default function Post() {
   const [comments, setComments] = useState(null);
   const { id } = useParams();
 
+  const initialLoad = async () => {
+    const fetchedPost = await findOne(id);
+    if (fetchedPost) {
+      setPost(fetchedPost);
+      setComments(fetchedPost.comments);
+    }
+    const posts = await findAll();
+    if (posts) {
+      setPostsLength(posts.length);
+    }
+    posts && fetchedPost ? setIsLoading(false) : setIsLoading(true);
+  };
+
   useEffect(() => {
-    fetch(`${API_URL}/posts`, {
-      method: "GET",
-      headers: { Accept: "Application/json" },
-    })
-      .then((res) => res.json())
-      .then((posts) => {
-        setPostsLength(posts.length);
-      });
-    fetch(`${API_URL}/posts/${id}`)
-      .then((res) => res.json())
-      .then((post) => {
-        setPost(post);
-        setComments(post.comments);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(true);
-        console.error(err);
-      });
+    initialLoad();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return !isLoading ? (
@@ -44,7 +43,7 @@ export default function Post() {
         <Grid item sm={6}>
           <h2>{post.title}</h2>
           <img
-            src={"http://localhost:1337" + post.image.formats.medium.url}
+            src={API_URL + post.image.formats.medium.url}
             alt="post thumbnail"
           />
         </Grid>
