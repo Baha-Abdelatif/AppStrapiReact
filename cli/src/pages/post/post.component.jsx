@@ -5,6 +5,7 @@ import { Grid, Box } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import { findAll, findOne } from "../../services/posts_api.service";
+import { getComments } from "../../services/comments_api.service";
 import { convertInLocaleDate } from "../../utils/dates.tools";
 import { API_URL } from "../../config/variables.config";
 
@@ -19,20 +20,31 @@ export default function Post() {
   const [comments, setComments] = useState(null);
   const { id } = useParams();
 
+  const fetchComments = async () => {
+    const data = await getComments(id);
+    setComments(data);
+  };
+  const fetchPost = async () => {
+    const data = await findOne(id);
+    setPost(data);
+    setIsLoading(false);
+  };
   const initialLoad = async () => {
-    const fetchedPost = await findOne(id);
-    if (fetchedPost) {
-      setPost(fetchedPost);
-      setComments(fetchedPost.comments);
-    }
+    // const fetchedPost = await findOne(id);
+    // if (fetchedPost) {
+    //   setPost(fetchedPost);
+    //   setComments(fetchedPost.comments);
+    // }
     const posts = await findAll();
     if (posts) {
       setPostsLength(posts.length);
     }
-    posts && fetchedPost ? setIsLoading(false) : setIsLoading(true);
+    // posts && fetchedPost ? setIsLoading(false) : setIsLoading(true);
   };
 
   useEffect(() => {
+    fetchPost();
+    fetchComments();
     initialLoad();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -61,11 +73,12 @@ export default function Post() {
         </Grid>
       </Grid>
       <div className="comments_container">
-        <CommentForm id={post.id} />
-        {comments.length > 0 &&
-          comments.map((comment) => (
-            <Comment comment={comment} key={comment.id} />
-          ))}
+        <CommentForm id={post.id} fetchComments={fetchComments} />
+        {comments &&
+          comments
+            .slice(0)
+            .reverse()
+            .map((comment) => <Comment comment={comment} key={comment.id} />)}
       </div>
     </div>
   ) : (

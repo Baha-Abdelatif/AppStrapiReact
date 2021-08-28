@@ -13,7 +13,7 @@ const initialState = {
   content: "Add your comment...",
 };
 
-export default function CommentForm({ id }) {
+export default function CommentForm({ id, fetchComments }) {
   const [comment, setComment] = useState(initialState);
 
   const handleChange = (e) => {
@@ -27,9 +27,9 @@ export default function CommentForm({ id }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await createComment(id, comment);
-      console.log(data);
+      await createComment({ post: id, ...comment });
       setComment(initialState);
+      fetchComments();
     } catch (error) {
       console.error(error);
     }
@@ -50,7 +50,7 @@ export default function CommentForm({ id }) {
             label="Username"
             fullWidth
             name="pseudo"
-            value={comment.username}
+            value={comment.pseudo}
             color="secondary"
           />
         </Grid>
