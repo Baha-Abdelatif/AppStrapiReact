@@ -3,25 +3,36 @@ import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
+import { createComment } from "../../../services/comments_api.service";
+
 import "./comment_form.styles.css";
+
 const initialState = {
-  username: "",
+  pseudo: "",
   content: "Add your comment...",
 };
+
 export default function CommentForm({ id }) {
   const [comment, setComment] = useState(initialState);
 
   const handleChange = (e) => {
     e.preventDefault();
+    const { name, value } = e.target;
     setComment({
       ...comment,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(comment);
-    setComment(initialState);
+    try {
+      const data = await createComment(id, comment);
+      console.log(data);
+      setComment(initialState);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <form
@@ -38,7 +49,7 @@ export default function CommentForm({ id }) {
             id="standard-basic"
             label="Username"
             fullWidth
-            name="username"
+            name="pseudo"
             value={comment.username}
             color="secondary"
           />
