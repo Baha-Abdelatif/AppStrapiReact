@@ -26,9 +26,6 @@
   display: flex;
 }
 
-.post_content {
-  margin: 1% 2%;
-}
 
 .post_image {
   display: flex;
@@ -39,3 +36,32 @@
 .post_image img {
   max-width: 150px;
 } */
+.post_navlinks {
+  width: 30%;
+  margin-top: 1%;
+  display: flex;
+  justify-content: space-between;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.post_navlinks a {
+  color: white;
+  font-size: 1.2rem;
+}
+
+/* .post_navlinks a:hover {
+  text-decoration: none;
+} */
+
+.post_content {
+  margin: 1% auto;
+}
+
+.post_container img {
+  max-width: 45vw;
+  max-height: 90vh;
+}

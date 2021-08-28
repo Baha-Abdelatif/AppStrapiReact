@@ -1,0 +1,14 @@
+#outlined-multiline-static {
+  color: white;
+}
+#standard-basic {
+  color: white;
+}
+.button_container {
+  display: flex;
+  justify-content: flex-end;
+}
+#submit_comment {
+  margin-top: 1%;
+  width: 25%;
+}
