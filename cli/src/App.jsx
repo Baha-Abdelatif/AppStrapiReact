@@ -5,6 +5,7 @@ import Post from "./pages/post/post.component";
 import Container from "@material-ui/core/Container";
 import Navbar from "./components/navbar/navbar.component";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import LoginPage from "./pages/login/login.component";
 
 const theme = createTheme({
   palette: {
@@ -27,6 +28,7 @@ function App() {
             <br />
             <Route exact path="/" component={Posts} />
             <Route path="/post/:id" component={Post} />
+            <Route exact path="/auth" component={LoginPage} />
           </Router>
         </div>
       </Container>

@@ -1,3 +1,5 @@
 export const API_URL = "http://localhost:1337"
 export const POSTS_URL = API_URL + "/posts"
 export const COMMENTS_URL = API_URL + "/comments"
+export const LOGIN_URL = API_URL + "/auth/local"
+export const REGISTER_URL = API_URL + "/auth/local/register"
