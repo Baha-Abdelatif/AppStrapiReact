@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+
 import { login } from "../../../services/auth_api.services";
+import AuthContext from "../../../contexts/auth.context";
 
 import { Grid } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -14,6 +17,8 @@ const initialState = {
 
 export default function LoginForm() {
   const [user, setUser] = useState(initialState);
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const history = useHistory();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -27,17 +32,12 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       await login(user);
-      console.log(user);
+      setIsAuthenticated(true);
+      history.replace("admin");
+      // console.log(user);
     } catch (error) {
       console.error(error);
     }
-    // try {
-    //   await createComment({ post: id, ...user });
-    //   setUser(initialState);
-    //   fetchComments();
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
   return (
     <form className="login_form" autoComplete="off" onSubmit={handleSubmit}>
