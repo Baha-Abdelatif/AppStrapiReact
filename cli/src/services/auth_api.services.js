@@ -15,6 +15,22 @@ export const login = (credentials) => {
     })
 }
 
+const logout = () => {
+  window.localStorage.removeItem("authToken");
+  window.localStorage.removeItem("username");
+  delete axios.defaults.headers["authorization"]
+}
+
+const initialSetup = () => {
+  const token = window.localStorage.getItem("authToken");
+  if (token) {
+    const { exp } = jwtDecode(token);
+    if (exp * 1000 > new Date().getTime()) {
+      axios.defaults.headers["Authorization"] = "Bearer " + token;
+    }
+  }
+}
+
 const isAuthenticated = () => {
   const token = window.localStorage.getItem("authToken");
 
@@ -29,5 +45,7 @@ const isAuthenticated = () => {
 
 export default {
   isAuthenticated,
-  login
+  initialSetup,
+  login,
+  logout
 }

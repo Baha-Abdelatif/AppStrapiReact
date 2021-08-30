@@ -1,0 +1,13 @@
+form {
+  background-color: white;
+  padding: 2.5%;
+  color: black;
+  border-radius: 10px;
+}
+.form_text_input {
+  width: 100%;
+  margin: 1% 0 !important;
+}
+#submit_newpost {
+  width: 15%;
+}

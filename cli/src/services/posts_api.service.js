@@ -11,3 +11,7 @@ export const findOne = (id) => {
   return axios.get(`${POSTS_URL}/${id}`)
     .then((res) => res.data)
 }
+
+export const createPost = (post) => {
+  return axios.post(POSTS_URL, post)
+}

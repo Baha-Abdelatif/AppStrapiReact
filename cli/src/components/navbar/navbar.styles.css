@@ -1,0 +1,25 @@
+.navbar {
+  width: 90%;
+  height: 15vh;
+  padding: 0 5%;
+  margin: 0 auto;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar nav {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav_elt {
+  text-align: center;
+  color: black;
+  margin: 0 2%;
+}
+
+.nav_elt:hover {
+  color: saddlebrown;
+}

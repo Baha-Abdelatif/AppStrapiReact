@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import AuthContext from "./contexts/auth.context";
@@ -31,6 +31,12 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     auth_apiServices.isAuthenticated
   );
+
+  useEffect(() => {
+    auth_apiServices.initialSetup();
+    auth_apiServices.isAuthenticated();
+  }, []);
+
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
       <MuiThemeProvider theme={theme}>
